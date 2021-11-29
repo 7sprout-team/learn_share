@@ -1,6 +1,6 @@
 # learn_share
 ## 目录：
-### 1. <a href='#'>k-means算法</a>
+### 1. <a href='https://github.com/7sprout/learn_share/tree/main/src/1.k-means%E7%AE%97%E6%B3%95'>k-means算法</a>
 
 ## 使用说明：
   新的分享请直接在src目录下创建module，module结构如下：
