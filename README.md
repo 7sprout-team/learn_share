@@ -3,7 +3,7 @@
 ### 1. <a href='#'>k-means算法</a>
 
 ## 使用说明：
-  新的分享情直接在src目录下创建module，module结构如下：
+  新的分享请直接在src目录下创建module，module结构如下：
   ```
   |-src
   | |- k-means
