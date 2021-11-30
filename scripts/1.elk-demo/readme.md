@@ -11,17 +11,17 @@
 
 - 资源文件：
 
-  [es-pv.yaml](https://github.com/7sprout/learn_share/scripts/1.elk-demo/es-pv.yaml)
+  [es-pv.yaml](https://github.com/7sprout/learn_share/blob/main/scripts/1.elk-demo/es-pv.yaml)
 
-  [es-statefulset.yaml](https://github.com/7sprout/learn_share/scripts/1.elk-demo/es-statefulset.yaml)
+  [es-statefulset.yaml](https://github.com/7sprout/learn_share/blob/main/scripts/1.elk-demo/es-statefulset.yaml)
 
-  [kibana.yaml](https://github.com/7sprout/learn_share/scripts/1.elk-demo/kibana.yaml)
+  [kibana.yaml](https://github.com/7sprout/learn_share/blob/main/scripts/1.elk-demo/kibana.yaml)
 
-  [logstash.conf](https://github.com/7sprout/learn_share/scripts/1.elk-demo/logstash.conf)
+  [logstash.conf](https://github.com/7sprout/learn_share/blob/main/scripts/1.elk-demo/logstash.conf)
 
-  [logstash-pv.yaml](https://github.com/7sprout/learn_share/scripts/1.elk-demo/logstash-pv.yaml)
+  [logstash-pv.yaml](https://github.com/7sprout/learn_share/blob/main/scripts/1.elk-demo/logstash-pv.yaml)
 
-  [logstash.yaml](https://github.com/7sprout/learn_share/scripts/1.elk-demo/logstash.yaml)
+  [logstash.yaml](https://github.com/7sprout/learn_share/blob/main/scripts/1.elk-demo/logstash.yaml)
 
 # 二、安装ElasticSearch
 
@@ -125,20 +125,21 @@ graph TB
 ~~~
 
 ~~~shell
-# 发送数据
-$ curl -XPOST 'http://152.136.178.202:32124' -H 'Content-Type: application/json' -d '{ "Say" : "Hello world!" }'
+# 发送数据, IP是master节点的地址
+$ curl -XPOST 'http://IP:32124' -H 'Content-Type: application/json' -d '{ "Say" : "Hello world!" }'
 ~~~
 
 ## 2、Kibana上查看数据
 
 在Kibana创建Index patterns: logstash*
 
-可以浏览器上访问http://152.136.178.202:31411/点击Discover可以看见上传的数据。
+可以浏览器上访问http://IP:31411/点击Discover可以看见上传的数据。
 
 ## 3、ES API查看数据
 
 ~~~shell
-$ curl -XGET "http://152.136.178.202:30145/logstash*/_search" -H 'Content-Type: application/json' | python -m json.tool
+# IP是master节点的地址
+$ curl -XGET "http://IP:30145/logstash*/_search" -H 'Content-Type: application/json' | python -m json.tool
 ...
 "hits": [{
 			"_index": "logstash-2021.11.30-000001",
@@ -151,7 +152,6 @@ $ curl -XGET "http://152.136.178.202:30145/logstash*/_search" -H 'Content-Type: 
 				"@version": "1",
 				"headers": {
 					"request_method": "POST",
-					"http_host": "152.136.178.202:31047",
 					"content_length": "26",
 					"request_path": "/",
 					"http_accept": "*/*",
@@ -164,5 +164,4 @@ $ curl -XGET "http://152.136.178.202:30145/logstash*/_search" -H 'Content-Type: 
 		}]
 ...
 ~~~
-
 
