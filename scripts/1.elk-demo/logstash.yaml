@@ -1,0 +1,62 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    app: logstash
+  name: logstash
+  namespace: logging
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: logstash
+  type: NodePort
+---
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  labels:
+    app: logstash
+  name: logstash
+  namespace: logging
+spec:
+  replicas: 1
+  serviceName: logstash
+  selector:
+    matchLabels:
+      app: logstash
+  template:
+    metadata:
+      labels:
+        app: logstash
+    spec:
+      containers:
+        - name: logstash
+          imagePullPolicy: IfNotPresent
+          image: docker.elastic.co/logstash/logstash:7.15.2
+          volumeMounts:
+            - mountPath: /usr/share/logstash/pipeline
+              name: conf
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+            - name: "XPACK_MONITORING_ELASTICSEARCH_URL"
+              value: http://elasticsearch:9200
+              #- name: "XPACK_MONITORING_ENABLED"
+              #value: "true"
+          securityContext:
+            privileged: true
+      nodeName: vm-64-6-ubuntu
+  volumeClaimTemplates:
+  - metadata:
+      name: conf
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi
+      storageClassName: logstash-conf-local
+      volumeMode: Filesystem

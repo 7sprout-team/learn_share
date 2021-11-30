@@ -1,0 +1,74 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: es-data0-pv-local
+  namespace: logging
+spec:
+  capacity:
+    storage: 1Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: "es-pv-local"
+  persistentVolumeReclaimPolicy: Retain
+  local:
+    path: /media/k8s-data/es-pv0
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/os
+          operator: In
+          values:
+          - linux
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: es-data1-pv-local
+  namespace: logging
+spec:
+  capacity:
+    storage: 1Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: "es-pv-local"
+  persistentVolumeReclaimPolicy: Retain
+  local:
+    path: /media/k8s-data/es-pv1
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/os
+          operator: In
+          values:
+          - linux
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: es-data2-pv-local
+  namespace: logging
+spec:
+  capacity:
+    storage: 1Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: "es-pv-local"
+  persistentVolumeReclaimPolicy: Retain
+  local:
+    path: /media/k8s-data/es-pv2
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/os
+          operator: In
+          values:
+          - linux
